@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>{% block title %}{% endblock %}|MiniProject</title>
+    </head>
+    
+    <body>
+        <nav class="bg-white py-6 px-6 flex justify-between items-center border-b border-gray-200 shadow-md">
+            <a href="#" class="text-2xl font-semibold text-gray-800 hover:text-blue-500">Computer Systems : Buying and Repairing</a>
+            <div class="flex items-center justify-end ml-auto">
+                <a href="{% url 'admin_home' %}" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Home Page</a>
+                <a href="/" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Log Out</a>
+                <button class="ml-4 flex items-center text-gray-800 focus:outline-none hover:text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                        <path fill-rule="evenodd" d="M1 3a1 1 0 011-1h16a1 1 0 010 2H2a1 1 0 01-1-1zM3 8a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zM2 13a1 1 0 100 2h16a1 1 0 100-2H2z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+  <head>
+    <title>Add Laptop</title>
+  </head>
+<head>
+	<title>Add Laptop</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
+</head>
+<body>
+	<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+	    <h2 class="text-2xl font-bold mb-4">Add Laptop</h2>
+	    <form action="{% url 'admin_add_laptop' %}" method="POST">
+	      	{% csrf_token %}
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="brand_name">
+		          	Brand Name:
+		        </label>
+		        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="brand_name" name="brand_name" type="text" placeholder="Enter Brand Name" required>
+	      	</div>
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="model_name">
+		          	Model Name:
+		        </label>
+		        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="model_name" name="model_name" type="text" placeholder="Enter Model Name" required>
+	      	</div>
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="price">
+		          	Price:
+		        </label>
+		        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" name="price" type="number" step="0.01" placeholder="Enter Price">
+	      	</div>
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="date_of_manf">
+		          	Date of Manufacture:
+		        </label>
+		        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date_of_manf" name="date_of_manf" type="date" required>
+	      	</div>
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="processor">
+		          	Processor:
+		        </label>
+		        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="processor" name="processor" type="text" placeholder="Enter Processor" required>
+	      	</div>
+
+	      	<div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="ram">
+		          	RAM:
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ram" name="ram" type="text" placeholder="Enter RAM" required>
+            </div>
+
+            <div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="size">
+		          	Screen Size:
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="size" name="size" type="number" placeholder="Enter Screen Size" required>
+            </div>
+
+            <div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="screen_type">
+		          	Screen Type (Touch/Non-Touch):
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="screen_type" name="screen_type" type="text" placeholder="Enter Screen Type" required>
+            </div>
+
+            <div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="OS">
+		          	Operating System:
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="OS" name="OS" type="text" placeholder="Enter Operating System" required>
+            </div>
+
+            <div class="mb-4">
+		        <label class="block text-gray-700 font-bold mb-2" for="Storage">
+		          	Storage:
+                </label>
+                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Storage" name="Storage" type="text" placeholder="Enter Storage" required>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded" type="submit">Add Laptop</button>
+                <p class="text-gray-600 text-sm mt-3">
+                  <a href="#" class="text-teal-500 hover:text-teal-700 font-medium">View All Laptops</a>
+                </p>
+            </div>
+        </form>
+  </body>
+</html>

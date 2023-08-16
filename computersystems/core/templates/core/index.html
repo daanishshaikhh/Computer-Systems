@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome!{% endblock%}
+
+{% block content %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl test-center">Newest Laptops : </h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for laptop in laptop %}
+                <div>
+                    <a href="{% url 'laptop:detail' laptop.prodid %}">
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{laptop.model_name}}</h2>
+                            <p class="text-gray-500">Price : {{laptop.price}}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl test-center">Services we provide:</h2>
+        <div class="grid grid-cols-2 gap-6">
+            <div>
+                <a href="#">
+                    <div class="p-6 bg-white rounded-b-xl">
+                        <h2 class="text-xl">Buy a second hand laptop in the best condition!</h2>
+                        <p class="text-gray-500">Negotiable Price!</p>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a href="#">
+                    <div class="p-6 bg-white rounded-b-xl">
+                        <h2 class="text-xl">Get your laptop repaired by our experts!</h2>
+                        <p class="text-gray-500">Affordable Prices!</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+  
+{% endblock %}

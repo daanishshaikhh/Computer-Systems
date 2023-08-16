@@ -1,0 +1,265 @@
+1. Procedure to display all laptops :
+
+DELIMITER //
+CREATE PROCEDURE display_laptop_table()
+BEGIN
+    SELECT * FROM laptop_laptop;
+END //
+DELIMITER ;
+
+-------------------------------------------------------------------------------------------------
+
+mysql> CREATE TABLE laptop_logs (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   action VARCHAR(10) NOT NULL,
+    ->   prodid VARCHAR(10) NOT NULL,
+    ->   FOREIGN KEY (prodid) REFERENCES laptop_laptop(prodid),
+    ->   brand_name VARCHAR(20) NOT NULL,
+    ->   model_name VARCHAR(20) NOT NULL,
+    ->   price DOUBLE,
+    ->   date_of_manf DATE,
+    ->   processor VARCHAR(20) NOT NULL,
+    ->   ram VARCHAR(5) NOT NULL,
+    ->   size INT,
+    ->   screen_type VARCHAR(5) NOT NULL,
+    ->   OS VARCHAR(30) NOT NULL,
+    ->   Storage VARCHAR(5) NOT NULL,
+    ->   timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=1;
+    -> $$
+
+mysql> desc laptop_logs;
+    -> $$
++--------------+-------------+------+-----+-------------------+-------------------+
+| Field        | Type        | Null | Key | Default           | Extra             |
++--------------+-------------+------+-----+-------------------+-------------------+
+| id           | int         | NO   | PRI | NULL              | auto_increment    |
+| action       | varchar(10) | NO   |     | NULL              |                   |
+| prodid       | varchar(10) | NO   | MUL | NULL              |                   |
+| brand_name   | varchar(20) | NO   |     | NULL              |                   |
+| model_name   | varchar(20) | NO   |     | NULL              |                   |
+| price        | double      | YES  |     | NULL              |                   |
+| date_of_manf | date        | YES  |     | NULL              |                   |
+| processor    | varchar(20) | NO   |     | NULL              |                   |
+| ram          | varchar(5)  | NO   |     | NULL              |                   |
+| size         | int         | YES  |     | NULL              |                   |
+| screen_type  | varchar(5)  | NO   |     | NULL              |                   |
+| OS           | varchar(30) | NO   |     | NULL              |                   |
+| Storage      | varchar(5)  | NO   |     | NULL              |                   |
+| timestamp    | timestamp   | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------+-------------+------+-----+-------------------+-------------------+
+
+2. Trigger to update laptop_logs when a new laptop is inserted into laptop_laptop :
+
+mysql> DELIMITER $$
+mysql> CREATE TRIGGER log_laptop_changes
+    -> AFTER INSERT ON laptop_laptop
+    -> FOR EACH ROW
+    -> BEGIN
+    ->  INSERT INTO laptop_logs (action,prodid,brand_name,model_name,price,date_of_manf,processor,ram,size,screen_type,OS,Storage,timestamp)
+    ->  VALUES ('insert',NEW.prodid,NEW.brand_name,NEW.model_name,NEW.price,NEW.processor,NEW.ram,NEW.size,NEW.screen_type,NEW.OS,NEW.Storage,NOW());
+    -> END;
+    -> $$
+
+converted to procedure :
+
+DELIMITER $$
+CREATE PROCEDURE log_laptop_changes (
+    IN prodid INT,
+    IN brand_name VARCHAR(255),
+    IN model_name VARCHAR(255),
+    IN price DECIMAL(10,2),
+    IN processor VARCHAR(255),
+    IN ram INT,
+    IN size INT,
+    IN screen_type VARCHAR(255),
+    IN OS VARCHAR(255),
+    IN Storage VARCHAR(255)
+	)
+BEGIN
+    INSERT INTO laptop_logs (action, prodid, brand_name, model_name, price, processor, ram, size, screen_type, OS, Storage, timestamp)
+    VALUES ('insert', prodid, brand_name, model_name, price, processor, ram, size, screen_type, OS, Storage, NOW());
+END
+$$
+DELIMITER ;
+
+3. Trigger to update laptop_logs when a laptop is deleted from laptop_laptop :
+mysql> CREATE TRIGGER log_laptop_changes_delete
+    -> AFTER DELETE ON laptop_laptop
+    -> FOR EACH ROW
+    -> BEGIN
+    ->  INSERT INTO laptop_logs (action,prodid,brand_name,model_name,price,date_of_manf,processor,ram,size,screen_type,OS,Storage,timestamp)
+    ->  VALUES ('delete',OLD.prodid,OLD.brand_name,OLD.model_name,OLD.price,OLD.processor,OLD.ram,OLD.size,OLD.screen_type,OLD.OS,OLD.Storage,NOW());
+    -> END;
+    -> $$
+
+4. Trigger to update laptop_logs when a laptop's attributes are updated in laptop_laptop :
+mysql> CREATE TRIGGER log_laptop_changes_update
+    -> AFTER UPDATE ON laptop_laptop
+    -> FOR EACH ROW
+    -> BEGIN
+    ->  INSERT INTO laptop_logs (action,prodid,brand_name,model_name,price,date_of_manf,processor,ram,size,screen_type,OS,Storage,timestamp)
+    ->  VALUES ('update',NEW.prodid,NEW.brand_name,NEW.model_name,NEW.price,NEW.processor,NEW.ram,NEW.size,NEW.screen_type,NEW.OS,NEW.Storage,NOW());
+    -> END;
+    -> $$
+
+DELIMITER $$
+CREATE PROCEDURE log_laptop_changes_update(
+  IN prodid INT,
+  IN brand_name VARCHAR(255),
+  IN model_name VARCHAR(255),
+  IN price DECIMAL(10,2),
+  IN date_of_manf DATE,
+  IN processor VARCHAR(255),
+  IN ram VARCHAR(255),
+  IN size VARCHAR(255),
+  IN screen_type VARCHAR(255),
+  IN OS VARCHAR(255),
+  IN Storage VARCHAR(255)
+)
+BEGIN
+  INSERT INTO laptop_logs (action,prodid,brand_name,model_name,price,date_of_manf,processor,ram,size,screen_type,OS,Storage,timestamp)
+  VALUES ('update', prodid, brand_name, model_name, price, date_of_manf, processor, ram, size, screen_type, OS, Storage, NOW());
+END$$
+DELIMITER ;
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE customer_log (
+  log_id INT AUTO_INCREMENT PRIMARY KEY,
+  custid VARCHAR(10) REFERENCES laptop_customer(custid)
+  name VARCHAR(30),
+  emailid VARCHAR(30),
+  ph_no INT,
+  dob DATE,
+  password VARCHAR(30),
+  log_type VARCHAR(10),
+  log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+5. Trigger to update customer_logs when a new customer is inserted into laptop_customer:
+
+DELIMITER //
+
+CREATE TRIGGER log_customer_changes
+AFTER INSERT ON laptop_customer
+FOR EACH ROW
+BEGIN
+    INSERT INTO customer_log (event_type, custid, name, emailid, ph_no, dob, password)
+    VALUES ('insert', NEW.custid, NEW.name, NEW.emailid, NEW.ph_no, NEW.dob, NEW.password);
+END //
+
+DELIMITER ;
+
+6. Trigger to update customer_logs when a new customer is deleted from laptop_customer:
+
+CREATE TRIGGER log_customer_changes
+AFTER DELETE ON laptop_customer
+FOR EACH ROW
+BEGIN
+    INSERT INTO customer_log (event_type, custid, name, emailid, ph_no, dob, password)
+    VALUES ('delete', OLD.custid, OLD.name, OLD.emailid, OLD.ph_no, OLD.dob, OLD.password);
+END //
+
+7. Trigger to update customer_logs when a new customer is inserted into laptop_customer:
+
+CREATE TRIGGER log_customer_changes
+AFTER UPDATE ON laptop_customer
+FOR EACH ROW
+BEGIN
+    INSERT INTO customer_log (event_type, custid, name, emailid, ph_no, dob, password)
+    VALUES ('update', NEW.custid, NEW.name, NEW.emailid, NEW.ph_no, NEW.dob, NEW.password);
+END //
+
+----------------------------------------------------------------------------------------------------------------
+
+8. Procedure to display all technicians (on admin's side):
+
+DELIMITER //
+CREATE PROCEDURE display_technician_table()
+BEGIN
+    SELECT * FROM laptop_technician;
+END //
+DELIMITER ;
+
+-----------------------------------------------------------------------------------------------------------------
+
+9. Trigger to generate LR (laptop request) :
+
+CREATE TRIGGER generate_receipt
+AFTER INSERT ON requests
+FOR EACH ROW
+BEGIN
+  IF NEW.reqid LIKE 'LR%' THEN
+    INSERT INTO receipts (reqid, custid, date_of_receipt, repair_type, user_desc, techi_desc, lab_cost)
+    VALUES (NEW.reqid, NEW.custid, NOW(), 'Laptop Request', '', '', 0);
+  END IF;
+END;
+
+10. Procedure to generate RR (repair request) :
+
+DELIMITER $$
+CREATE PROCEDURE get_request(IN p_reqid VARCHAR(10))
+BEGIN
+    INSERT INTO receipts (reqid, custid, date_of_req, repair_type, user_desc, techi_desc, lab_cost)
+    SELECT reqid, custid, date_of_req, repair_type, user_desc, techi_desc, lab_cost
+    FROM requests
+    WHERE reqid = p_reqid;
+END$$
+DELIMITER ;
+
+
+11. Procedure to display Repair Requests (on technician's side to mark as done and on admin's side to overview):
+DELIMITER //
+CREATE PROCEDURE get_requests_starting_with_RR()
+BEGIN
+    SELECT *
+    FROM requests
+    WHERE reqid LIKE 'RR%';
+END //
+
+DELIMITER ;
+
+12. Procedure to display Laptop Requests (on admin's side, to confirm the requests):
+DELIMITER //
+CREATE PROCEDURE get_requests_starting_with_LL()
+BEGIN
+    SELECT *
+    FROM requests
+    WHERE reqid LIKE 'LR%';
+END //
+
+DELIMITER ;
+
+13. To delete from laptop table (will be used when customer's purchase is confirmed)
+DELIMITER //
+
+CREATE PROCEDURE delete_laptop(IN p_prodid VARCHAR(10))
+BEGIN
+    DELETE FROM laptops WHERE prodid = p_prodid;
+END //
+
+DELIMITER ;
+
+14. To filter by entered date_of_manf (on customer's side)
+DELIMITER //
+
+CREATE PROCEDURE delete_laptop(IN p_prodid VARCHAR(10))
+BEGIN
+    DELETE FROM laptops WHERE prodid = p_prodid;
+END //
+
+DELIMITER ;
+
+15. To filter by entered RAM size (on customer's side)
+DELIMITER //
+
+CREATE PROCEDURE get_laptops_by_ram_size(IN p_ram_size VARCHAR(5))
+BEGIN
+    SELECT *
+    FROM laptops
+    WHERE ram = p_ram_size;
+END //
+
+DELIMITER ;

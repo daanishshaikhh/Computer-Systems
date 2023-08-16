@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% block title %}{{laptop.model_name}}{%endblock%}
+{%block content%}
+<h1 class="text-2xl">{{laptop.model_name}} details : </h1>
+    <div class="grid grid-cols-5 gap-6">
+        <div class="col-span-3">
+            <p class="text-gray-500">Price : {{laptop.price}}</p>
+            <p class="text-gray-500">Date Of Manufacture : {{laptop.date_of_manf}}</p>
+            <p class="text-gray-500">Processor : {{laptop.processor}}</p>
+            <p class="text-gray-500">Storage : {{laptop.Storage}}</p>
+            <p class="text-gray-500">RAM : {{laptop.ram}}</p>
+            <p class="text-gray-500">OS : {{laptop.OS}}</p>
+            <p class="text-gray-500">Screen Size : {{laptop.size}} inches</p>
+            <p class="text-gray-500">Screen Type : {{laptop.screen_type}}</p>
+        </div>
+    </div>
+
+{%endblock%}

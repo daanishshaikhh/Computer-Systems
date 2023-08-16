@@ -1,0 +1,52 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock %}|MiniProject</title>
+</head>
+
+<body>
+    <nav class="bg-white py-6 px-6 flex justify-between items-center border-b border-gray-200 shadow-md">
+        <a href="#" class="text-2xl font-semibold text-gray-800 hover:text-blue-500">Computer Systems : Buying and Repairing</a>
+        <div class="flex items-center justify-end ml-auto">
+            <a href="{% url 'admin_home' %}" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Home Page</a>
+            <a href="/" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Log Out</a>
+            <button class="ml-4 flex items-center text-gray-800 focus:outline-none hover:text-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd" d="M1 3a1 1 0 011-1h16a1 1 0 010 2H2a1 1 0 01-1-1zM3 8a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zM2 13a1 1 0 100 2h16a1 1 0 100-2H2z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div class="my-8">
+            <h1 class="text-3xl font-bold mb-4">All Employees</h1>
+
+            <div class="overflow-x-auto">
+                <table class="table-auto border-collapse w-full">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="p-3 border">ID</th>
+                            <th class="p-3 border">Name</th>
+                            <th class="p-3 border">Email ID</th>
+                            <th class="p-3 border">Hire Date</th>
+                            <th class="p-3 border">Password</th>
+                            <th class="p-3 border">Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for technician in technicians %}
+                        <tr class="hover:bg-gray-100 transition-colors">
+                            <td class="p-3 border">{{ technician.0 }}</td>
+                            <td class="p-3 border">{{ technician.1 }}</td>
+                            <td class="p-3 border">{{ technician.2 }}</td>
+                            <td class="p-3 border">{{ technician.3 }}</td>
+                            <td class="p-3 border">{{ technician.4 }}</td>
+                            <td class="p-3 border">{{ technician.5 }}</td>
+                            <td class="p-3 border">{{ technician.6 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</body>

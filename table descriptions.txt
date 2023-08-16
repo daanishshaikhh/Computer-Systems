@@ -1,0 +1,73 @@
+mysql> desc laptop_laptop;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| prodid       | varchar(10) | NO   | PRI | NULL    |       |
+| brand_name   | varchar(20) | NO   |     | NULL    |       |
+| model_name   | varchar(20) | NO   |     | NULL    |       |
+| price        | double      | YES  |     | NULL    |       |
+| date_of_manf | date        | YES  |     | NULL    |       |
+| processor    | varchar(20) | NO   |     | NULL    |       |
+| ram          | varchar(5)  | NO   |     | NULL    |       |
+| size         | int         | YES  |     | NULL    |       |
+| screen_type  | varchar(5)  | NO   |     | NULL    |       |
+| OS           | varchar(30) | NO   |     | NULL    |       |
+| Storage      | varchar(5)  | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> desc laptop_customer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| custid   | varchar(10) | NO   | PRI | NULL    |       |
+| name     | varchar(30) | YES  |     | NULL    |       |
+| emailid  | varchar(30) | YES  |     | NULL    |       |
+| ph_no    | int         | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| password | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> desc laptop_technician;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| techid    | varchar(10) | NO   | PRI | NULL    |       |
+| tname     | varchar(20) | YES  |     | NULL    |       |
+| tusername | varchar(30) | YES  |     | NULL    |       |
+| hiredate  | date        | YES  |     | NULL    |       |
+| password  | varchar(15) | YES  |     | NULL    |       |
+| salary    | int         | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+
+mysql> CREATE TABLE laptop_logs (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   action VARCHAR(10) NOT NULL,
+    ->   prodid VARCHAR(10) NOT NULL,
+    ->   FOREIGN KEY (prodid) REFERENCES laptop_laptop(prodid),
+    ->   brand_name VARCHAR(20) NOT NULL,
+    ->   model_name VARCHAR(20) NOT NULL,
+    ->   price DOUBLE,
+    ->   date_of_manf DATE,
+    ->   processor VARCHAR(20) NOT NULL,
+    ->   ram VARCHAR(5) NOT NULL,
+    ->   size INT,
+    ->   screen_type VARCHAR(5) NOT NULL,
+    ->   OS VARCHAR(30) NOT NULL,
+    ->   Storage VARCHAR(5) NOT NULL,
+    ->   timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+    -> $$
+
+mysql> CREATE TABLE customer_log (
+  	 log_id INT AUTO_INCREMENT PRIMARY KEY,
+  	 custid VARCHAR(10),
+  	 name VARCHAR(30),
+  	 emailid VARCHAR(30),
+  	 ph_no INT,
+  	 dob DATE,
+  	 password VARCHAR(30),
+  	 log_type VARCHAR(10),
+  	 log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	 );

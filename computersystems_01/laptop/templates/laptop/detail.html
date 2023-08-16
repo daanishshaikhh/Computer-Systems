@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{laptop.model_name}}{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold">{{laptop.model_name}} details:</h1>
+        <div class="flex flex-wrap -mx-4 mt-6">
+            <div class="w-full md:w-1/3 px-4">
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Price:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.price }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Date of Manufacture:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.date_of_manf }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Processor:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.processor }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Storage:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.Storage }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">RAM:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.ram }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Operating System:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.OS }}</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Screen Size:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.size }}"</p>
+                </div>
+                <div class="mb-6">
+                    <p class="text-gray-600 text-lg mb-2">Screen Type:</p>
+                    <p class="text-gray-800 font-bold text-xl">{{ laptop.screen_type }}</p>
+                </div>
+            </div>
+            <div class="w-full md:w-2/3 px-4 mb-8 md:mb-0">
+                <img class="object-contain w-full h-auto md:rounded-lg" src="{{ laptop.image.url }}" alt="{{ laptop.model_name }} image">
+            </div>
+        </div>
+    </div>
+{% endblock %}

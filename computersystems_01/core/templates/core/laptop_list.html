@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    Available Laptops
+{% endblock %}
+
+{% block content %}
+    <div class="my-8">
+        <h1 class="text-3xl font-bold mb-4">Available Laptops</h1>
+
+        <div class="overflow-x-auto">
+            <table class="table-auto border-collapse w-full">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="p-3 border">Product ID</th>
+                        <th class="p-3 border">Brand</th>
+                        <th class="p-3 border">Model</th>
+                        <th class="p-3 border">Price</th>
+                        <th class="p-3 border">Date of Manufacture</th>
+                        <th class="p-3 border">Processor</th>
+                        <th class="p-3 border">RAM</th>
+                        <th class="p-3 border">Size</th>
+                        <th class="p-3 border">Screen Type</th>
+                        <th class="p-3 border">OS</th>
+                        <th class="p-3 border">Storage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for laptop in laptops %}
+                    <tr class="hover:bg-gray-100 transition-colors">
+                        <td class="p-3 border">{{ laptop.0 }}</td>
+                        <td class="p-3 border">{{ laptop.1 }}</td>
+                        <td class="p-3 border">{{ laptop.2 }}</td>
+                        <td class="p-3 border">{{ laptop.3 }}</td>
+                        <td class="p-3 border">{{ laptop.4 }}</td>
+                        <td class="p-3 border">{{ laptop.5 }}</td>
+                        <td class="p-3 border">{{ laptop.6 }}</td>
+                        <td class="p-3 border">{{ laptop.7 }}</td>
+                        <td class="p-3 border">{{ laptop.8 }}</td>
+                        <td class="p-3 border">{{ laptop.9 }}</td>
+                        <td class="p-3 border">{{ laptop.10 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

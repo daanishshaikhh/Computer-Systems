@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+    <div class="px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-3xl text-center font-bold">Newest Laptops</h2>
+        <div class="grid grid-cols-3 gap-6">
+            {% for laptop in laptops %}
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-500 ease-in-out">
+                    <a href="{% url 'laptop:detail' laptop.prodid %}">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold">{{ laptop.model_name }}</h2>
+                            <p class="text-gray-500 text-lg font-medium">Price: ₹{{ laptop.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-12 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-3xl text-center font-bold">Services We Provide</h2>
+        <div class="grid grid-cols-2 gap-12">
+            <div class="bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-500 ease-in-out">
+                <a href="#">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold">Buy a Second-Hand Laptop</h2>
+                        <p class="text-gray-500 text-lg font-medium">Negotiable Prices!</p>
+                    </div>
+                </a>
+            </div>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-500 ease-in-out">
+                <a href="#">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold">Get Your Laptop Repaired</h2>
+                        <p class="text-gray-500 text-lg font-medium">Affordable Prices!</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

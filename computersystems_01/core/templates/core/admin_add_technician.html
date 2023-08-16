@@ -1,0 +1,65 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock %}|MiniProject</title>
+</head>
+
+<body>
+    <nav class="bg-white py-6 px-6 flex justify-between items-center border-b border-gray-200 shadow-md">
+        <a href="#" class="text-2xl font-semibold text-gray-800 hover:text-blue-500">Computer Systems : Buying and Repairing</a>
+        <div class="flex items-center justify-end ml-auto">
+            <a href="{% url 'admin_home' %}" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Home Page</a>
+            <a href="/" class="px-6 py-3 text-lg font-semibold text-gray-800 hover:text-blue-500">Log Out</a>
+            <button class="ml-4 flex items-center text-gray-800 focus:outline-none hover:text-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd" d="M1 3a1 1 0 011-1h16a1 1 0 010 2H2a1 1 0 01-1-1zM3 8a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zM2 13a1 1 0 100 2h16a1 1 0 100-2H2z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+<div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Add Technician</h2>
+    <form action="{% url 'admin_add_technician' %}" method="POST">
+      {% csrf_token %}
+      
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="tname">
+          Tech Name:
+        </label>
+        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tname" name="tname" type="text" placeholder="Enter technician name" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="tusername">
+          Tech Email ID:
+        </label>
+        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tusername" name="tusername" type="text" placeholder="Enter technician email ID" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="hiredate">
+          Hire Date:
+        </label>
+        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="hiredate" name="hiredate" type="date" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="password">
+          Password:
+        </label>
+        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="Enter technician password" required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="salary">
+          Salary:
+        </label>
+        <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="salary" name="salary" type="number" placeholder="Enter technician salary" required>
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded" type="submit">Add Technician</button>
+        <p class="text-gray-600 text-sm mt-3">
+          <a href="{% url 'admin_all_technicians' %}" class="text-teal-500 hover:text-teal-700 font-medium">View All Technicians</a>
+        </p>
+      </div>
+    </form>
+</div> 
+</body>
